@@ -8,18 +8,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myplanner.R;
+import com.example.myplanner.models.AuthCallback;
+import com.example.myplanner.models.AuthManager;
 import com.example.myplanner.models.User;
-import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.HashMap;
-import java.util.Map;
-
-public class RegisterActivity extends AppCompatActivity {
-    EditText kadi,sifre,ad,soyad,email,okul;
-    Button giris,kayit;
+public class RegisterActivity extends BaseActivity {
+    // Kriter: Encapsulation (Değişken tanımlamaları)
+    EditText kadi, sifre, ad, soyad, email, okul;
+    Button giris, kayit;
     TextView bilgi;
 
     @Override
@@ -27,46 +25,65 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_register);
-        kadi=findViewById(R.id.edit_kadi);
-        sifre=findViewById(R.id.edit_sifre);
-        ad=findViewById(R.id.edit_ad);
-        soyad=findViewById(R.id.edit_soyad);
-        email=findViewById(R.id.edit_email);
-        okul=findViewById(R.id.edit_okulis);
-        kayit=findViewById(R.id.btn_kayitol);
-        giris=findViewById(R.id.btn_giris);
-        bilgi=findViewById(R.id.text_bilgi);
 
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        // XML Bağlantıları
+        kadi = findViewById(R.id.edit_kadi);
+        sifre = findViewById(R.id.edit_sifre);
+        ad = findViewById(R.id.edit_ad);
+        soyad = findViewById(R.id.edit_soyad);
+        email = findViewById(R.id.edit_email);
+        okul = findViewById(R.id.edit_okulis);
+        kayit = findViewById(R.id.btn_kayitol);
+        giris = findViewById(R.id.btn_giris);
+        bilgi = findViewById(R.id.text_bilgi);
 
-        // Kaydet butonuna basıldığında...
+        // Kayıt Ol Butonu
         kayit.setOnClickListener(v -> {
-            // 1. Kutulardaki verileri al
-            String username = kadi.getText().toString();
-            String password = sifre.getText().toString();
-            String name = ad.getText().toString();
-            String surname = soyad.getText().toString();
-            String mail = email.getText().toString();
-            String school = okul.getText().toString();
+            // 1. Kriter: Exception Handling (İnternet Kontrolü)
+            if (!internetVarMi()) {
+                internetYokEkraniGoster(); // Pembe ünlemli ekran
+                return;
+            }
 
+            // Boş alan kontrolü (Kullanıcı deneyimi için önemli)
+            if (kadi.getText().toString().isEmpty() || sifre.getText().toString().isEmpty()) {
+                mesajGoster("Kullanıcı adı ve şifre boş bırakılamaz bebüş!");
+                return;
+            }
 
-            User yeniKullanici = new User(name, surname, mail, school, password, username);
+            // 2. Kriter: Model Kullanımı (User nesnesi oluşturma)
+            // Not: User constructor'ındaki parametre sırasına dikkat et kanka!
+            User yeniUser = new User(
+                    ad.getText().toString(),
+                    soyad.getText().toString(),
+                    email.getText().toString(),
+                    okul.getText().toString(),
+                    sifre.getText().toString(),
+                    kadi.getText().toString());
 
-            db.collection("Users")
-                    .document(username)
-                    .set(yeniKullanici)
-                    .addOnSuccessListener(aVoid -> {
-                        bilgi.setVisibility(View.VISIBLE);
-                        bilgi.setText("Kayıt Başarılı, " + yeniKullanici.getAd() + "!");
-                        giris.setVisibility(View.VISIBLE);
-                    })
-                    .addOnFailureListener(e -> {
-                        Toast.makeText(this, "Hata: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                    });
+            AuthManager authManager = new AuthManager();
+
+            // 3. Kriter: Asenkron Veri Yazma (Firebase Kayıt)
+            authManager.kullaniciKaydet(yeniUser, new AuthCallback() {
+                @Override
+                public void onSuccess(String mesaj) {
+                    bilgi.setText("Kayıt Başarılı!");
+                    bilgi.setVisibility(View.VISIBLE);
+                    giris.setVisibility(View.VISIBLE); // Giriş butonunu göster
+                    mesajGoster(mesaj);
+                }
+
+                @Override
+                public void onFailure(String hata) {
+                    // Kriter: Toast Message kullanımı
+                    Toast.makeText(RegisterActivity.this, "Hata: " + hata, Toast.LENGTH_SHORT).show();
+                }
+            });
         });
 
+        // Giriş Ekranına Dön Butonu
         giris.setOnClickListener(v -> {
-            finish();
+            finish(); // Bu aktiviteyi kapatır ve bir önceki (Login) ekrana döner
         });
     }
 }

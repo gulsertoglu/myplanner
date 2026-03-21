@@ -2,5 +2,6 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="pembe">#F0D6D9</color>
+    <color name="pembe">#FFF0D6D9</color>
+    <color name="mor">#FF6750A4</color>
 </resources>

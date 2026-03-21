@@ -7,6 +7,9 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myplanner.R;
+import com.example.myplanner.models.AuthCallback;
+import com.example.myplanner.models.AuthManager;
+import com.example.myplanner.models.SessionManager;
 import com.example.myplanner.models.User;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -17,8 +20,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 
-public class MainActivity extends AppCompatActivity {
-    FirebaseFirestore db;
+public class MainActivity extends BaseActivity {
     EditText kullanici,sifre;
     Button btn_giris,kayitol;
     @Override
@@ -31,41 +33,41 @@ public class MainActivity extends AppCompatActivity {
         btn_giris = findViewById(R.id.giris);
         kayitol = findViewById(R.id.kayit);
 
-        db = FirebaseFirestore.getInstance();
+        SessionManager sessionManager = new SessionManager(this);
+
+        if (sessionManager.isLoggedIn()) {
+            Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+            intent.putExtra("username", sessionManager.getUsername());
+            startActivity(intent);
+            finish();
+        }
 
         btn_giris.setOnClickListener(v -> {
-            String usernameInput = kullanici.getText().toString();
-            String passwordInput = sifre.getText().toString();
-
-            try {
-                db.collection("Users")
-                        .whereEqualTo("username", usernameInput)
-                        .get()
-                        .addOnCompleteListener(task -> {
-                            if (task.isSuccessful() && !task.getResult().isEmpty()) {
-                                DocumentSnapshot doc = task.getResult().getDocuments().get(0);
-                                User girisYapanKullanici = doc.toObject(User.class);
-
-                                if (girisYapanKullanici != null) {
-                                    if (girisYapanKullanici.getPassword().equals(passwordInput)) {
-                                        Intent intent = new Intent(MainActivity.this, HomeActivity.class);
-                                        intent.putExtra("kisiAd", girisYapanKullanici.getAd() + " " + girisYapanKullanici.getSoyad());
-                                        intent.putExtra("kisiOkul", girisYapanKullanici.getOkulIs());
-                                        intent.putExtra("username", girisYapanKullanici.getUsername());
-
-                                        startActivity(intent);
-                                        finish();
-                                    } else {
-                                        Toast.makeText(MainActivity.this, "Şifre Yanlış!", Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                            } else {
-                                Toast.makeText(MainActivity.this, "Kullanıcı Bulunamadı!", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-            } catch (Exception e) {
-                Log.e("LoginError", "Giriş sırasında hata oluştu: " + e.getMessage());
+            if (!internetVarMi()) {
+                internetYokEkraniGoster();
+                return;
             }
+
+            AuthManager authManager = new AuthManager();
+                String username = kullanici.getText().toString();
+                String password = sifre.getText().toString();
+
+                authManager.kullaniciGiris(username, password, new AuthCallback() {
+                    @Override
+                    public void onSuccess(String mesaj) {
+                        SessionManager sessionManager = new SessionManager(MainActivity.this);
+                        sessionManager.createLoginSession(username);
+
+                        Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+
+                    @Override
+                    public void onFailure(String hata) {
+                        Toast.makeText(MainActivity.this, hata, Toast.LENGTH_SHORT).show();
+                    }
+                });
         });
         kayitol.setOnClickListener( v ->{
             Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
