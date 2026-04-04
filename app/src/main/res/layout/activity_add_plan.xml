@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#121212">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@color/mor"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="YENİ PLAN EKLE"
+            android:textColor="@color/pembe"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Plan Başlığı"
+                android:textColor="@color/mor"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp"/>
+
+            <EditText
+                android:id="@+id/et_plan_title"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/edittext_border"
+                android:hint="Örn: Final Sınavı Çalış"
+                android:textColor="@color/white"
+                android:textColorHint="#555555"
+                android:paddingHorizontal="15dp"
+                android:layout_marginBottom="20dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Plan Detayları"
+                android:textColor="@color/mor"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp"/>
+
+            <EditText
+                android:id="@+id/et_plan_detail"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:background="@drawable/edittext_border"
+                android:gravity="top"
+                android:hint="Neler yapman gerektiğini anlat..."
+                android:textColor="@color/white"
+                android:textColorHint="#555555"
+                android:padding="15dp"
+                android:layout_marginBottom="20dp"/>
+
+            <Button
+                android:id="@+id/btn_select_date"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:text="TARİH VE SAAT SEÇ"
+                android:backgroundTint="@color/mor"
+                android:textColor="@color/white"
+                android:layout_marginBottom="30dp"/>
+
+            <Button
+                android:id="@+id/btn_save_plan"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="PLANI KAYDET"
+                android:backgroundTint="@color/pembe"
+                android:textColor="@color/mor"
+                android:textStyle="bold"
+                android:textSize="18sp"/>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

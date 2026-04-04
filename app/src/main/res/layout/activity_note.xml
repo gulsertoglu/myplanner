@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#121212">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@color/mor"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="NOTLARIM"
+            android:textColor="@color/pembe"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/et_quick_note"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_margin="15dp"
+        android:background="@drawable/edittext_border"
+        android:gravity="top"
+        android:hint="Aklına gelenleri buraya yaz canım..."
+        android:textColor="@color/white"
+        android:textColorHint="#555555"
+        android:padding="20dp"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/btn_save_note"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_margin="20dp"
+        android:text="NOTU TELEFONA KAYDET"
+        android:backgroundTint="@color/pembe"
+        android:textColor="@color/mor"
+        android:textStyle="bold" />
+
+</LinearLayout>

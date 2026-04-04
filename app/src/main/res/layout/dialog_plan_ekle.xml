@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="320dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:background="@android:color/white">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Yeni Plan Oluştur"
+        android:textColor="#800080"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_gravity="center"
+        android:layout_marginBottom="15dp"/>
+
+    <EditText
+        android:id="@+id/edit_plan_baslik"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Plan Başlığı (Örn: Ders Çalış)"
+        android:inputType="textCapSentences"
+        android:padding="12dp"
+        android:background="@android:drawable/edit_text"/>
+
+    <EditText
+        android:id="@+id/edit_plan_detay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="Neler yapacaksın?"
+        android:inputType="textMultiLine"
+        android:lines="2"
+        android:padding="12dp"
+        android:background="@android:drawable/edit_text"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Önem Derecesi Seç:"
+        android:layout_marginTop="15dp"
+        android:textColor="#333333"
+        android:textStyle="bold"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="10dp">
+
+        <View
+            android:id="@+id/view_red"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/circle_bg"
+            android:backgroundTint="#F44336" />
+
+        <View
+            android:id="@+id/view_yellow"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/circle_bg"
+            android:backgroundTint="#FFC107" />
+
+        <View
+            android:id="@+id/view_green"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/circle_bg"
+            android:backgroundTint="#4CAF50" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_plan_kaydet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="#800080"
+        android:text="LİSTEYE EKLE"
+        android:textColor="@android:color/white"
+        android:textStyle="bold" />
+
+</LinearLayout>

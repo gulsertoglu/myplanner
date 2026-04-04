@@ -1,37 +1,54 @@
 package com.example.myplanner.models;
 
+import com.google.firebase.Timestamp;
+
 public class Plan {
-    // Kriter: Encapsulation (Kapsülleme)
     private String id;
     private String baslik;
-    private String icerik;
-    private String tarih;
+    private String detay; // Adapter'da 'icerik' diye çağırdığın yer burası
+    private String renk;
+    private String sahibi;
     private boolean tamamlandi;
+    private Timestamp tarih;
 
-    // Firebase için boş constructor şart bebüş!
-    public Plan() {}
-
-    public Plan(String id, String baslik, String icerik, String tarih, boolean tamamlandi) {
-        this.id = id;
-        this.baslik = baslik;
-        this.icerik = icerik;
-        this.tarih = tarih;
-        this.tamamlandi = tamamlandi;
+    // 1. Boş Constructor (Firebase'in veriyi nesneye dönüştürmesi için ŞART!)
+    public Plan() {
     }
 
-    // Getter ve Setter metotları (Hoca bunları mutlaka kontrol eder)
+    // 2. Dolu Constructor (Opsiyonel ama işimizi kolaylaştırır)
+    public Plan(String baslik, String detay, String renk, String sahibi, Timestamp tarih) {
+        this.baslik = baslik;
+        this.detay = detay;
+        this.renk = renk;
+        this.sahibi = sahibi;
+        this.tarih = tarih;
+        this.tamamlandi = false;
+    }
+
+    // 3. Getter ve Setter Metotları
     public String getId() { return id; }
     public void setId(String id) { this.id = id; }
 
     public String getBaslik() { return baslik; }
     public void setBaslik(String baslik) { this.baslik = baslik; }
 
-    public String getIcerik() { return icerik; }
-    public void setIcerik(String icerik) { this.icerik = icerik; }
+    // Adapter'da 'plan.getIcerik()' yazmıştık, hata almamak için bu ismi koruyoruz:
+    public String getIcerik() { return detay; }
+    public void setIcerik(String icerik) { this.detay = icerik; }
 
-    public String getTarih() { return tarih; }
-    public void setTarih(String tarih) { this.tarih = tarih; }
+    public String getDetay() { return detay; }
+    public void setDetay(String detay) { this.detay = detay; }
+
+    public String getRenk() { return renk; }
+    public void setRenk(String renk) { this.renk = renk; }
+
+    public String getSahibi() { return sahibi; }
+    public void setSahibi(String sahibi) { this.sahibi = sahibi; }
 
     public boolean isTamamlandi() { return tamamlandi; }
     public void setTamamlandi(boolean tamamlandi) { this.tamamlandi = tamamlandi; }
+
+    // EN ÖNEMLİ KISIM: Timestamp Tipinde Tarih
+    public Timestamp getTarih() { return tarih; }
+    public void setTarih(Timestamp tarih) { this.tarih = tarih; }
 }
