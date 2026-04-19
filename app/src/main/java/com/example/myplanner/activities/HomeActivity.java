@@ -39,7 +39,7 @@ public class HomeActivity extends BaseActivity {
     private List<Plan> planListesi = new ArrayList<>();
     private SessionManager sessionManager;
     private String secilenRenkStr = "#4CAF50";
-    private FirebaseFirestore db; // Eksik olan db tanımını ekledik
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +52,6 @@ public class HomeActivity extends BaseActivity {
         rvPlans = findViewById(R.id.rv_plans);
         rvPlans.setLayoutManager(new LinearLayoutManager(this));
 
-        // 1. Üst Menü / Logout Butonu
         ImageButton btnLogout = findViewById(R.id.btn_logout);
         btnLogout.setOnClickListener(v -> {
             sessionManager.logoutUser();
@@ -69,7 +68,7 @@ public class HomeActivity extends BaseActivity {
 
         btnOpenMenu.setOnClickListener(v -> drawerLayout.openDrawer(GravityCompat.START));
 
-        // MENÜ TIKLAMALARI (Tüm Sayfaları Buradan Bağladık!)
+        // MENÜ TIKLAMALARI
         navigationView.setNavigationItemSelectedListener(item -> {
             int id = item.getItemId();
             if (id == R.id.nav_profile) startActivity(new Intent(this, ProfileActivity.class));

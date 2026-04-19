@@ -1,6 +1,9 @@
 package com.example.myplanner.activities;
 
 import android.os.Bundle;
+import android.webkit.WebView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,18 +12,65 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.myplanner.R;
+import com.example.myplanner.models.SessionManager;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class ProfileActivity extends AppCompatActivity {
+    TextView tvName ,tvEmail, tvOkul;
+    FirebaseFirestore db;
+    SessionManager sessionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_profile);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+
+        tvName = findViewById(R.id.tv_profile_full_name);
+        tvOkul = findViewById(R.id.tv_profile_okul);
+        tvEmail= findViewById(R.id.tv_profile_email);
+
+
+        db = FirebaseFirestore.getInstance();
+        sessionManager = new SessionManager(this);
+
+        String currentUsername = sessionManager.getUsername();
+
+        if (currentUsername != null) {
+            loadUserProfile(currentUsername);
+        } else {
+            Toast.makeText(this, "Oturum bilgisi bulunamadı!", Toast.LENGTH_SHORT).show();
+        }
+    }
+    private void loadUserProfile(String username) {
+        android.util.Log.d("PROFIL_TEST", "Aranan Kullanıcı Adı: " + username);
+
+        db.collection("Users").document(username)
+                .get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()) {
+                        android.util.Log.d("PROFIL_TEST", "Döküman Bulundu! Veriler: " + documentSnapshot.getData());
+
+                        // Firebase'deki isimleri buradakilerle birebir eşle
+                        String ad = documentSnapshot.getString("ad");
+                        String soyad = documentSnapshot.getString("soyad");
+                        String email = documentSnapshot.getString("email");
+                        String okul = documentSnapshot.getString("okulIs"); // Firestore'daki gibi tireli mi?
+
+                        String tamAd = (ad != null ? ad : "") + " " + (soyad != null ? soyad : "");
+
+                        // UI'ya basarken hata olup olmadığını anlamak için:
+                        if(tvName != null) tvName.setText(tamAd.trim().isEmpty() ? username : tamAd);
+                        if(tvEmail != null) tvEmail.setText(email);
+                        if(tvOkul != null) tvOkul.setText(okul);
+
+                    } else {
+                        android.util.Log.e("PROFIL_TEST", "Döküman bulunamadı! Veritabanında '" + username + "' isimli bir dosya yok.");
+                        Toast.makeText(this, "Veritabanında kayıt yok: " + username, Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    android.util.Log.e("PROFIL_TEST", "Firebase Hatası: " + e.getMessage());
+                });
     }
 }

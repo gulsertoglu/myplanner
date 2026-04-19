@@ -39,51 +39,52 @@ public class RegisterActivity extends BaseActivity {
 
         // Kayıt Ol Butonu
         kayit.setOnClickListener(v -> {
-            // 1. Kriter: Exception Handling (İnternet Kontrolü)
+            // İnternet Kontrolü
             if (!internetVarMi()) {
-                internetYokEkraniGoster(); // Pembe ünlemli ekran
+                internetYokEkraniGoster();
                 return;
             }
 
-            // Boş alan kontrolü (Kullanıcı deneyimi için önemli)
-            if (kadi.getText().toString().isEmpty() || sifre.getText().toString().isEmpty()) {
-                mesajGoster("Kullanıcı adı ve şifre boş bırakılamaz bebüş!");
+            // Değerleri String'e çevirip alalım
+            String strKadi = kadi.getText().toString().trim();
+            String strSifre = sifre.getText().toString().trim();
+            String strAd = ad.getText().toString().trim();
+            String strSoyad = soyad.getText().toString().trim();
+            String strEmail = email.getText().toString().trim();
+            String strOkul = okul.getText().toString().trim();
+
+            // Boş alan kontrolü
+            if (strKadi.isEmpty() || strSifre.isEmpty() || strAd.isEmpty() || strEmail.isEmpty()) {
+                mesajGoster("Gerekli alanları boş bırakamazsın bebüş!");
                 return;
             }
 
-            // 2. Kriter: Model Kullanımı (User nesnesi oluşturma)
-            // Not: User constructor'ındaki parametre sırasına dikkat et kanka!
-            User yeniUser = new User(
-                    ad.getText().toString(),
-                    soyad.getText().toString(),
-                    email.getText().toString(),
-                    okul.getText().toString(),
-                    sifre.getText().toString(),
-                    kadi.getText().toString());
+            // 2. Kriter: Model Kullanımı
+            // User nesnesi oluştururken kadi'yi de içine veriyoruz
+            User yeniUser = new User(strAd, strSoyad, strEmail, strOkul, strSifre, strKadi);
 
             AuthManager authManager = new AuthManager();
 
-            // 3. Kriter: Asenkron Veri Yazma (Firebase Kayıt)
+            // 🚀 KRİTİK DEĞİŞİKLİK:
+            // authManager içindeki kullaniciKaydet metodu arka planda artık
+            // .add() yerine .document(yeniUser.getKadi()).set() kullanmalı!
             authManager.kullaniciKaydet(yeniUser, new AuthCallback() {
                 @Override
                 public void onSuccess(String mesaj) {
-                    bilgi.setText("Kayıt Başarılı!");
+                    bilgi.setText("Kayıt Başarılı! Hoş geldin " + strKadi);
                     bilgi.setVisibility(View.VISIBLE);
-                    giris.setVisibility(View.VISIBLE); // Giriş butonunu göster
+                    giris.setVisibility(View.VISIBLE);
                     mesajGoster(mesaj);
+
                 }
 
                 @Override
                 public void onFailure(String hata) {
-                    // Kriter: Toast Message kullanımı
-                    Toast.makeText(RegisterActivity.this, "Hata: " + hata, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "Kayıt Hatası: " + hata, Toast.LENGTH_SHORT).show();
                 }
             });
         });
 
-        // Giriş Ekranına Dön Butonu
-        giris.setOnClickListener(v -> {
-            finish(); // Bu aktiviteyi kapatır ve bir önceki (Login) ekrana döner
-        });
+        giris.setOnClickListener(v -> finish());
     }
 }

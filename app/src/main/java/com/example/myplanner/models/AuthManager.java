@@ -11,34 +11,33 @@ public class AuthManager {
     }
 
     public void kullaniciGiris(String username, String password, AuthCallback callback) {
-        // KRİTER: Koleksiyon adı Firebase'deki gibi "Users" olmalı!
+        // Giriş yaparken de direkt döküman adına göre bakmak daha hızlıdır
         db.collection("Users")
-                .whereEqualTo("username", username)
+                .document(username) // Direkt kullanıcı adını (ID) arıyoruz
                 .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful() && !task.getResult().isEmpty()) {
-                        DocumentSnapshot document = task.getResult().getDocuments().get(0);
+                .addOnSuccessListener(document -> {
+                    if (document.exists()) {
                         String dbPassword = document.getString("password");
-
-                        // Şifre kontrolü (Büyük/küçük harf duyarlıdır!)
                         if (dbPassword != null && dbPassword.equals(password)) {
                             callback.onSuccess("Giriş Başarılı! Hoş geldin " + username);
                         } else {
                             callback.onFailure("Hatalı şifre girdin bebüş!");
                         }
                     } else {
-                        callback.onFailure("Kullanıcı bulunamadı! (Koleksiyon: Users)");
+                        callback.onFailure("Kullanıcı bulunamadı!");
                     }
                 })
                 .addOnFailureListener(e -> callback.onFailure("Hata: " + e.getMessage()));
     }
 
-    // Kriter: Model-Driven Development (User nesnesini komple alıyoruz)
+    // 🔥 İŞTE HER ŞEYİ DÜZELTEN O KRİTİK METOT
     public void kullaniciKaydet(User yeniUser, AuthCallback callback) {
-        // Firebase'deki koleksiyon adın "Users" (Büyük U)
+        // .add(yeniUser) yerine .document(yeniUser.getKadi()).set(yeniUser) kullanıyoruz.
+        // Böylece Firestore'daki döküman ID'si kullanıcının adı (Örn: gulsertoglu) oluyor.
         db.collection("Users")
-                .add(yeniUser) // Paketi olduğu gibi Firebase'e fırlatıyoruz
-                .addOnSuccessListener(documentReference -> {
+                .document(yeniUser.getUsername()) // Kapı numarası artık kullanıcı adı!
+                .set(yeniUser) // Verileri içeri yerleştiriyoruz
+                .addOnSuccessListener(aVoid -> {
                     callback.onSuccess("Kayıt Başarılı! Hoş geldin " + yeniUser.getUsername());
                 })
                 .addOnFailureListener(e -> {
