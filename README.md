@@ -38,7 +38,7 @@ My Planner; modern yaşamın yoğun temposunda kullanıcıların zaman yönetimi
 ---
 
 ##  Proje Sahibi Bilgileri
-- **Adı Soyadı:** Gülsüm Sertoğlu  
+- **Adı Soyadı:** Ümmügülsüm Sertoğlu  
 - **Okul / Bölüm:** Marmara Üniversitesi - Bilgisayar Programcılığı  
-- **Proje Türü:** Mobil Programlama Dersi Final Projesi  
+- **Proje Türü:** Nesne Yönelimli Programlama ve Mobil Programlama Dersi Final Projesi  
 - **Geliştirme Yılı:** © 2026 gulsum.visible
