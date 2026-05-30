@@ -50,7 +50,6 @@ public class Plan {
     public boolean isTamamlandi() { return tamamlandi; }
     public void setTamamlandi(boolean tamamlandi) { this.tamamlandi = tamamlandi; }
 
-    // BURASI HATAYI ÇÖZEN KISIM: silindi field'ı
     public boolean isSilindi() { return silindi; }
     public void setSilindi(boolean silindi) { this.silindi = silindi; }
 

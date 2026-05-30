@@ -3,87 +3,106 @@
     android:layout_width="320dp"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:background="#121212"
     android:padding="20dp"
-    android:background="@android:color/white">
+    android:layout_gravity="center">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Yeni Plan Oluştur"
-        android:textColor="#800080"
-        android:textSize="20sp"
+        android:text="YENİ PLAN"
+        android:textColor="@color/pembe"
+        android:textSize="18sp"
         android:textStyle="bold"
-        android:layout_gravity="center"
+        android:gravity="center"
         android:layout_marginBottom="15dp"/>
 
     <EditText
         android:id="@+id/edit_plan_baslik"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Plan Başlığı (Örn: Ders Çalış)"
-        android:inputType="textCapSentences"
-        android:padding="12dp"
-        android:background="@android:drawable/edit_text"/>
+        android:layout_height="50dp"
+        android:background="@drawable/edittext_border"
+        android:hint="Plan Başlığı..."
+        android:textColor="@color/white"
+        android:textColorHint="#555555"
+        android:paddingHorizontal="15dp"
+        android:layout_marginBottom="12dp"
+        android:textSize="14sp"/>
 
     <EditText
         android:id="@+id/edit_plan_detay"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:hint="Neler yapacaksın?"
-        android:inputType="textMultiLine"
-        android:lines="2"
+        android:layout_height="90dp"
+        android:background="@drawable/edittext_border"
+        android:gravity="top"
+        android:hint="Neler yapman gerektiğini anlat..."
+        android:textColor="@color/white"
+        android:textColorHint="#555555"
         android:padding="12dp"
-        android:background="@android:drawable/edit_text"/>
+        android:layout_marginBottom="15dp"
+        android:textSize="14sp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Önem Derecesi Seç:"
-        android:layout_marginTop="15dp"
-        android:textColor="#333333"
-        android:textStyle="bold"/>
+        android:text="Önem Derecesi"
+        android:textColor="@color/mor"
+        android:textStyle="bold"
+        android:textSize="14sp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="5dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center"
-        android:layout_marginTop="10dp">
+        android:layout_marginBottom="15dp">
 
         <View
-            android:id="@+id/view_red"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_margin="10dp"
-            android:background="@drawable/circle_bg"
-            android:backgroundTint="#F44336" />
+            android:id="@+id/view_color_red"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="8dp"
+            android:background="@drawable/color_circle_red"/>
 
         <View
-            android:id="@+id/view_yellow"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_margin="10dp"
-            android:background="@drawable/circle_bg"
-            android:backgroundTint="#FFC107" />
+            android:id="@+id/view_color_yellow"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="8dp"
+            android:background="@drawable/color_circle_yellow"/>
 
         <View
-            android:id="@+id/view_green"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_margin="10dp"
-            android:background="@drawable/circle_bg"
-            android:backgroundTint="#4CAF50" />
+            android:id="@+id/view_color_green"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="8dp"
+            android:background="@drawable/color_circle_green"/>
     </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_select_date"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="TARİH VE SAAT SEÇ"
+        android:backgroundTint="@color/mor"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:layout_marginBottom="12dp"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"/>
 
     <Button
         android:id="@+id/btn_plan_kaydet"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:backgroundTint="#800080"
-        android:text="LİSTEYE EKLE"
-        android:textColor="@android:color/white"
-        android:textStyle="bold" />
+        android:layout_height="50dp"
+        android:text="PLANI KAYDE"
+        android:backgroundTint="@color/pembe"
+        android:textColor="@color/mor"
+        android:textStyle="bold"
+        android:textSize="15sp"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"/>
 
 </LinearLayout>

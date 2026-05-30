@@ -1,95 +1,159 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawer_layout_add_plan"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#121212">
+    android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:background="@color/mor"
-        android:padding="10dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="YENİ PLAN EKLE"
-            android:textColor="@color/pembe"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-    </RelativeLayout>
-
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="20dp">
+        android:orientation="vertical"
+        android:background="#121212">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="70dp"
+            android:background="@color/mor"
+            android:padding="10dp">
+
+            <ImageButton
+                android:id="@+id/btn_open_menu_add_plan"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:src="@android:drawable/ic_menu_sort_by_size"
+                app:tint="@color/pembe"
+                android:contentDescription="Menü Aç" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Plan Başlığı"
-                android:textColor="@color/mor"
-                android:textStyle="bold"
-                android:layout_marginBottom="8dp"/>
+                android:layout_centerInParent="true"
+                android:text="YENİ PLAN EKLE"
+                android:textColor="@color/pembe"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
 
-            <EditText
-                android:id="@+id/et_plan_title"
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="20dp">
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@drawable/edittext_border"
-                android:hint="Örn: Final Sınavı Çalış"
-                android:textColor="@color/white"
-                android:textColorHint="#555555"
-                android:paddingHorizontal="15dp"
-                android:layout_marginBottom="20dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Plan Detayları"
-                android:textColor="@color/mor"
-                android:textStyle="bold"
-                android:layout_marginBottom="8dp"/>
+                android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/et_plan_detail"
-                android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:background="@drawable/edittext_border"
-                android:gravity="top"
-                android:hint="Neler yapman gerektiğini anlat..."
-                android:textColor="@color/white"
-                android:textColorHint="#555555"
-                android:padding="15dp"
-                android:layout_marginBottom="20dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Plan Başlığı"
+                    android:textColor="@color/mor"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="8dp"/>
 
-            <Button
-                android:id="@+id/btn_select_date"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:text="TARİH VE SAAT SEÇ"
-                android:backgroundTint="@color/mor"
-                android:textColor="@color/white"
-                android:layout_marginBottom="30dp"/>
+                <EditText
+                    android:id="@+id/et_plan_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/edittext_border"
+                    android:hint="Örn: Final Sınavı Çalış"
+                    android:textColor="@color/white"
+                    android:textColorHint="#555555"
+                    android:paddingHorizontal="15dp"
+                    android:layout_marginBottom="20dp"/>
 
-            <Button
-                android:id="@+id/btn_save_plan"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:text="PLANI KAYDET"
-                android:backgroundTint="@color/pembe"
-                android:textColor="@color/mor"
-                android:textStyle="bold"
-                android:textSize="18sp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Plan Detayları"
+                    android:textColor="@color/mor"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="8dp"/>
 
-        </LinearLayout>
-    </ScrollView>
-</LinearLayout>
+                <EditText
+                    android:id="@+id/et_plan_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:background="@drawable/edittext_border"
+                    android:gravity="top"
+                    android:hint="Neler yapman gerektiğini anlat..."
+                    android:textColor="@color/white"
+                    android:textColorHint="#555555"
+                    android:padding="15dp"
+                    android:layout_marginBottom="20dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Önem Derecesi"
+                    android:textColor="@color/mor"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="8dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_marginBottom="20dp">
+
+                    <View
+                        android:id="@+id/view_color_red"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/color_circle_red"/>
+
+                    <View
+                        android:id="@+id/view_color_yellow"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/color_circle_yellow"/>
+
+                    <View
+                        android:id="@+id/view_color_green"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/color_circle_green"/>
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btn_select_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:text="TARİH VE SAAT SEÇ"
+                    android:backgroundTint="@color/mor"
+                    android:textColor="@color/white"
+                    android:layout_marginBottom="30dp"/>
+
+                <Button
+                    android:id="@+id/btn_save_plan"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:text="PLANI KAYDET"
+                    android:backgroundTint="@color/pembe"
+                    android:textColor="@color/mor"
+                    android:textStyle="bold"
+                    android:textSize="18sp"/>
+
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view_add_plan"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/nav_header"
+        app:menu="@menu/main_menu" />
+
+</androidx.drawerlayout.widget.DrawerLayout>

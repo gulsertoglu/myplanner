@@ -33,6 +33,7 @@
         <activity android:name=".activities.NoteActivity" android:exported="false" />
         <activity android:name=".activities.TrashActivity" android:exported="false" />
         <activity android:name=".activities.PlanDetailsActivity" android:exported="false" />
+        <activity android:name=".activities.CalendarActivity" android:exported="false" />
 
         <meta-data
             android:name="preloaded_fonts"
